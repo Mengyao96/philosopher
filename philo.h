@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mezhang <mezhang@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tracy <tracy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 16:41:56 by mezhang           #+#    #+#             */
-/*   Updated: 2025/08/28 11:19:07 by mezhang          ###   ########.fr       */
+/*   Updated: 2025/08/28 19:18:14 by tracy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,15 @@ typedef struct s_data
 	int				num_must_eat;
 
 	//mutext
-	pthread_mutex_t	*mutexes;
+	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_lock;
 
 	//other env vars
 	long long		start_time;
 
 	//terminating vars: 0 or 1
-	int				one_died;
-	int				all_ate;
+	// int				one_died; //in monitoring
+	int				all_ate; //in monitoring
 	int				is_end; //sharing termination status to philos
 
 	//philosopher array
@@ -53,7 +53,6 @@ typedef struct s_philo
 	long long		last_meal_time;
 	int				status; // 0 = thinking, 1 = eating, 2 = sleeping
 
-
 	//thread & common data
 	pthread_t		thread_id; //main thread
 	t_data			*data;
@@ -61,6 +60,9 @@ typedef struct s_philo
 	//forks
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*r_fork;
+
+	//own data protection
+	pthread_mutex_t	lock;
 
 }	t_philo;
 
@@ -73,7 +75,8 @@ int		init_all(t_data *data, char **av, int ac);
 int		launch_mutexes(t_data *data);
 void	launch_philos(t_data *data);
 
-
+//routine
+void	philo_routine(t_philo *philo);
 
 //clean up
 void	cleanup(t_data *data);

@@ -20,14 +20,15 @@ int	launch_mutexes(t_data *data)
 
 	total = data->num_philos;
 	i = 0;
-	data->mutexes = malloc(sizeof(pthread_mutex_t) * total);
-	if (!data->mutexes)
-		return (printf("Failed to malloc mutexes.\n"), -1);
+	// data->forks = malloc(sizeof(pthread_mutex_t) * total); //??
+	// if (!data->forks)
+	// 	return (printf("Failed to malloc forks.\n"), -1);
 	while (i < total)
 	{
-		pthread_mutex_init(&data->mutexes[i], NULL);
+		pthread_mutex_init(&(data->forks[i]), NULL);
 		i++;
 	}
+	pthread_mutex_init(&(data->forks[i]), NULL);
 	return (0);
 }
 
@@ -38,12 +39,14 @@ int	launch_philos(t_data *data)
 	i = 0;
 	data->philos = malloc(sizeof(t_philo) * data->num_philos);
 	if (!data->philos)
-		return (printf("Error: Failed to malloc philos.\n")-1);
+		return (printf("Error: Failed to malloc philos.\n"), -1);
 	while (i < data->num_philos)
 	{
 		ft_memset(&(data->philos[i]), 0, sizeof(t_philo));
 		data->philos[i].id = i;
 		data->philos[i].data = data;
+		data->philos[i].l_fork = &(data->forks[i]);
+		data->philos[i].r_fork = &(data->forks[(i + 1) % data->num_philos]);
 		if (pthread_create(&data->philos[i].thread_id, NULL,
 			&philo_routine, &data->philos[i]) != 0)
 			return (printf("Error: Failed to create philos[%d].\n", i), -1);

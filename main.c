@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mezhang <mezhang@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tracy <tracy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 16:41:46 by mezhang           #+#    #+#             */
-/*   Updated: 2025/08/28 11:22:02 by mezhang          ###   ########.fr       */
+/*   Updated: 2025/08/28 17:20:06 by tracy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ int	main(int argc, char **argv)
 		return (printf("Error: Failed to init parameters.\n"), 1);
 	if (launch_mutexes(&data) < 0) // init forks & print_lock
 		return (1);
-	if (launch_philos(&data) < 0) // init philos & threads - philos start their routines, print data
-		return (cleanup(&data), 1);
+	launch_philos(&data); // init philos & threads - philos start their routines, print data
 	monitoring(&data); // monitor philos' status, and terminate if needed
 	cleanup(&data); // free all malloced memory & destroy mutexes
 	return (0);
