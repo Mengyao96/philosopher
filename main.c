@@ -6,7 +6,7 @@
 /*   By: mezhang <mezhang@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 16:41:46 by mezhang           #+#    #+#             */
-/*   Updated: 2025/08/27 22:09:00 by mezhang          ###   ########.fr       */
+/*   Updated: 2025/08/28 11:22:02 by mezhang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int	main(int argc, char **argv)
 	if (init_all(&data, argv, argc) < 0)
 		return (printf("Error: Failed to init parameters.\n"), 1);
 	if (launch_mutexes(&data) < 0) // init forks & print_lock
-		return (printf("Error: Failed to init mutexes.\n"), 1);
+		return (1);
 	if (launch_philos(&data) < 0) // init philos & threads - philos start their routines, print data
-		return (printf("Error: Failed to init philos.\n"), cleanup(&data), 1);
+		return (cleanup(&data), 1);
 	monitoring(&data); // monitor philos' status, and terminate if needed
 	cleanup(&data); // free all malloced memory & destroy mutexes
 	return (0);

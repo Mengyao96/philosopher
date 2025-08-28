@@ -6,7 +6,7 @@
 /*   By: mezhang <mezhang@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 16:41:56 by mezhang           #+#    #+#             */
-/*   Updated: 2025/08/27 21:49:56 by mezhang          ###   ########.fr       */
+/*   Updated: 2025/08/28 11:19:07 by mezhang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_philo
 
 
 	//thread & common data
-	pthread_t		thread_id;
+	pthread_t		thread_id; //main thread
 	t_data			*data;
 
 	//forks
