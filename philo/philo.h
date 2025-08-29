@@ -6,7 +6,7 @@
 /*   By: mezhang <mezhang@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 16:41:56 by mezhang           #+#    #+#             */
-/*   Updated: 2025/08/28 21:02:59 by mezhang          ###   ########.fr       */
+/*   Updated: 2025/08/29 12:50:24 by mezhang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int			launch_forks(t_data *data);
 int			launch_philos(t_data *data);
 
 //routine
-void		*philo_routine(t_philo *philo);
+void		*philo_routine(void *arg);
 long long 	current_time_ms(void);
 void		safe_print(t_philo *philo, const char *message);
 

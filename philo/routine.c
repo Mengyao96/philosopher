@@ -6,7 +6,7 @@
 /*   By: mezhang <mezhang@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 21:53:12 by mezhang           #+#    #+#             */
-/*   Updated: 2025/08/28 21:02:53 by mezhang          ###   ########.fr       */
+/*   Updated: 2025/08/29 12:52:55 by mezhang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,12 @@ static void	take_the_fork(t_philo *philo, pthread_mutex_t *fork)
 	safe_print(philo, "has taken a fork");
 }
 
-void	*philo_routine(t_philo *philo)
+void	*philo_routine(void *arg)
 {
+	t_philo	*philo;
+
+	philo = (t_philo *)arg;
+
 	while (1)
 	{
 		//thinking
@@ -91,4 +95,5 @@ void	*philo_routine(t_philo *philo)
 		if (philo->data->is_end)
 			break ;
 	}
+	return (NULL);
 }

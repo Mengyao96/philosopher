@@ -6,7 +6,7 @@
 /*   By: mezhang <mezhang@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 17:18:32 by tracy             #+#    #+#             */
-/*   Updated: 2025/08/28 20:47:56 by mezhang          ###   ########.fr       */
+/*   Updated: 2025/08/29 12:53:54 by mezhang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	is_philo_dead(t_philo *philo)
 {
 	long long	since_last_meal;
 
-	since_last_meal = current_time_in_ms() - philo->last_meal_time;
+	since_last_meal = current_time_ms() - philo->last_meal_time;
 	if (since_last_meal >= philo->data->time_to_die)
 	{
 		printf("%lld %d died.\n", current_time_ms(), philo->id);
@@ -41,7 +41,8 @@ void monitoring(t_data *data)
 			pthread_mutex_lock(&(data->philos[i].lock));
 			if (is_philo_dead(&data->philos[i]))
 			{
-				return (pthread_mutex_unlock(&(data->philos[i].lock)));
+				pthread_mutex_unlock(&(data->philos[i].lock));
+				return ;
 			}
 			if (data->philos[i].num_eaten >= data->num_must_eat)
 				all_ate += 1;
@@ -50,7 +51,8 @@ void monitoring(t_data *data)
 		}
 		if (all_ate == data->num_philos)
 		{
-			return (data->is_end = 1);
+			data->is_end = 1;
+			return ;
 		}
 		usleep(1000); //sleep 1ms to reduce CPU usage
 	}
