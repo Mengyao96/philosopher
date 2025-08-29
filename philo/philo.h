@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mezhang <mezhang@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: mezhang <mezhang@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 16:41:56 by mezhang           #+#    #+#             */
-/*   Updated: 2025/08/29 12:50:24 by mezhang          ###   ########.fr       */
+/*   Updated: 2025/08/29 15:41:00 by mezhang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
-# include <machine/types.h>
+// # include <machine/types.h>
+# include <sys/types.h>
 # include <sys/time.h>
 
 typedef struct s_data
@@ -33,6 +34,9 @@ typedef struct s_data
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_lock;
 
+	
+	//benchemark for time and death
+	long long		start_time;
 	int				is_end; //sharing termination status to philos
 
 	//philosopher array
@@ -63,7 +67,7 @@ typedef struct s_philo
 //parsing
 int			ft_atoi(const char *str);
 void		*ft_memset(void *b, int c, size_t len);
-int			init_all(t_data *data, char **av, int ac);
+int			init_data(t_data *data, char **av, int ac);
 
 //launch all
 int			launch_forks(t_data *data);
